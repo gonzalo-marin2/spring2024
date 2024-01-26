@@ -3,16 +3,18 @@ package service.implementations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import model.Producto;
 import service.interfaces.ProductosService;
-
+@Service
 public class ProductosServiceImpl implements ProductosService {
 	
 	private static List<Producto> productos=new ArrayList<>();
 	
 	@Override
-	public void agregarProducto(String nombre, double precio, String categoria) {
-		productos.add(new Producto(nombre,precio,categoria));
+	public void agregarProducto(Producto producto) {
+		productos.add(producto);
 	}
 
 	@Override

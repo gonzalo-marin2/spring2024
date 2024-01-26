@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Entradas de la temática: <span th:text="${param.tematica}"></span></h1>
+	<div th:each="r:${resultados}">
+		<h2><a th:href="${r.url}" th:text="${r.url}">"${r.url}"</a></h2>
+		<h4 th:text="${r.descripcion}">"${r.descripcion}"</h4>
+		<hr>
+	</div>
+	<br>
+	<a href="toBuscar">Volver</a>
+</body>
+</html>
