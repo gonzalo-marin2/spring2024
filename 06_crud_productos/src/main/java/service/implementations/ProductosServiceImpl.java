@@ -18,8 +18,6 @@ public class ProductosServiceImpl implements ProductosService {
 	@PersistenceContext
 	EntityManager em;
 	
-	ProductosServiceImpl service=new ProductosServiceImpl();
-	
 	private Producto buscarPorNombre(String nombre) {	
 		return em.find(Producto.class, nombre);
 	}
@@ -47,11 +45,17 @@ public class ProductosServiceImpl implements ProductosService {
 	@Transactional
 	@Override
 	public void modificarPrecio(String nombre, double nuevoPrecio) {
-		String jpql="update Producto p set p.precio=?1 where p.nombre=?2";
+		/*String jpql="update Producto p set p.precio=?1 where p.nombre=?2";
 		Query query=em.createQuery(jpql);
 		query.setParameter(1, nuevoPrecio);
 		query.setParameter(2, nombre);
-		query.executeUpdate();
+		query.executeUpdate();*/
+		
+		Producto producto=buscarPorNombre(nombre);
+		if(producto!=null) {
+			producto.setPrecio(nuevoPrecio);
+			em.merge(producto);
+		}
 	}
 
 	@Transactional

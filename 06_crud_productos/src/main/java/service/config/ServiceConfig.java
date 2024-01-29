@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 public class ServiceConfig {
 	String driver="com.mysql.cj.jdbc.Driver";
-	String cadena="jdbc:mysql://localhost:3306/productos";
+	String cadena="jdbc:mysql://localhost:3306/tienda";
 	String usuario="root";
 	String pw="root";
 	//creación del objeto DataSource con los datos de conexión a la BD

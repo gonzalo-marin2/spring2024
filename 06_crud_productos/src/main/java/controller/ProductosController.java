@@ -41,7 +41,7 @@ public class ProductosController {
 		return "menu";	
 	}
 	
-	@GetMapping(value="actualizar")
+	@GetMapping(value="modificar")
 	public String actualizar(@RequestParam("nombre") String nombre, @RequestParam("nuevoPrecio") double nuevoPrecio, Model model) {
 		productosService.modificarPrecio(nombre, nuevoPrecio);
 		return "menu";
