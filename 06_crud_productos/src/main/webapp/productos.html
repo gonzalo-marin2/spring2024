@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>Productos de <span th:text="${param.categoria}"></span> </h2>
+	<table border="1">
+		<tr>
+			<th>Nombre</th>
+			<th>Precio</th>
+		</tr>
+		
+			<tr th:each="pr:${productos}">
+				<td th:text="${pr.nombre}"></td>
+				<td th:text="${pr.precio}"></td>
+			</tr>
+		
+	</table>
+	<a href="toMenu">Volver a home</a>
+	
+	
+</body>
+</html>

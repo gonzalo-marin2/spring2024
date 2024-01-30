@@ -19,19 +19,21 @@ public class ProductosServiceImpl implements ProductosService {
 	EntityManager em;
 	
 	private Producto buscarPorNombre(String nombre) {	
-		return em.find(Producto.class, nombre);
+		String jpql="select p from Producto p where p.nombre=?1";
+		TypedQuery<Producto> query=em.createQuery(jpql, Producto.class);
+		query.setParameter(1, nombre);
+		List<Producto> productos=query.getResultList();
+		return productos.size()>0?productos.get(0):null;
 	}
 	
 	@Transactional
 	@Override
 	public boolean agregarProducto(Producto producto) {
-		Producto pr=buscarPorNombre(producto.getNombre());
-		if(pr!=null) {
+		if(buscarPorNombre(producto.getNombre())!=null) {
 			return false;
-		}else {
-			em.persist(pr);
-			return true;
-		}	
+		}
+		em.persist(producto);
+		return true;
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class ProductosServiceImpl implements ProductosService {
 	public Producto eliminarProducto(String nombre) {
 		Producto pr=buscarPorNombre(nombre);
 		if(pr.getNombre().equals(nombre)) {
-			String jpql="delete p from Producto p where p.nombre=?1";
+			String jpql="delete from Producto p where p.nombre=?1";
 			Query query=em.createQuery(jpql);
 			query.setParameter(1, nombre);
 			query.executeUpdate();
