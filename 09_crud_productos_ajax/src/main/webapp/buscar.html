@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js
+"></script> 
+</head>
+<body>
+	<center>
+		
+		<div>
+			Introduce categoría: <input type="text" id="categoria" name="categoria"><br><br>
+			<input type="button" id="btnMostrar" value="Mostrar">
+		</div>
+		<br>
+		<div id="tablaProductos">
+		</div>
+		<br>
+		<a href="toMenu">Menu</a>
+	</center>
+	<script type="text/javascript">
+		$("#btnMostrar").click(function(){
+			var url="buscar";
+			var params={"categoria":$("#categoria").val()};
+			gestionarPeticion(url,params);
+		});
+	
+		function gestionarPeticion(url,params){
+			$.get(url,params,function(data){
+				var tabla="<table border='1'><tr><th>Producto</th><th>Precio</th></tr>";
+				$.each(data,function(i,p){
+					tabla+="<tr><td>"+p.nombre+"</td><td>"+p.precio+"</td></tr>";
+				});
+				tabla+="</table>";
+				$("#tablaProductos").html(tabla);
+			});
+		}
+	</script> 
+</body>
+</html>
