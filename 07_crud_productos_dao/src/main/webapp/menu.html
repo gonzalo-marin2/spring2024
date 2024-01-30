@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div>
+		<img src="descarga.jpg">
+		<h1>Bienvenido al CRUD de productos</h1>
+		<a href="toAgregar">Nuevo producto</a><br>
+		<a href="toBuscar">Buscar producto por categoría</a><br>
+		<a href="toModificar">Modificar el precio de un producto</a><br>
+		<a href="toEliminar">Eliminar un producto</a>
+	</div>
+	<div th:if="${mensajeAlta}" th:text="${mensajeAlta}"></div>
+	<div th:if="${mensajeEliminar}" th:text="${mensajeEliminar}"></div>
+
+</body>
+</html>
