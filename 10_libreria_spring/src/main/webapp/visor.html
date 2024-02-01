@@ -14,7 +14,7 @@
 	Seleccione tema:
 	
 	<select name="temas" id="temaSel">
-		<option value="0">-Todos-</option>
+		<option value="0">-Todos</option>
 		<option th:each="t : ${temas}" th:value="${t.idTema}" th:text="${t.tema}"></option>
 	</select>
 	
