@@ -52,13 +52,20 @@ public class LibreriaController {
 		List<Libro> carrito=new ArrayList<>();
 		Libro libro=librosService.getLibro(isbn);
 		if(sesion.getAttribute("carrito")!=null){
-			
+			carrito=(List<Libro>)sesion.getAttribute("carrito");)
 		}
+		carrito.add(libro);
+		sesion.setAttribute("carrito", carrito);
 	}
 	
 	@GetMapping(value="quitarCarrito",produces="application/json")
 	public @ResponseBody List<Libro> quitarCarrito(@RequestParam("pos") int pos, HttpSession sesion){
-		
+		List<Libro> carrito=new ArrayList<>();
+		if(sesion.getAttribute("carrito")!=null) {
+			carrito=(List<Libro>)sesion.getAttribute("carrito");
+			carrito.remove(pos);
+		}
+		sesion.setAttribute("carrito", carrito);
 	}
 	
 }
