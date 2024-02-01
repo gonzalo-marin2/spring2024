@@ -53,7 +53,7 @@
 			var tabla="<table border='1'><tr><th>Título</th><th>ISBN</th><th>Precio</th><th>Páginas</th><th>Tema</th><th></th></tr>";
 			$.each(data, function(i,l){
 				tabla+="<tr><td>"+l.titulo+"</td><td>"+l.isbn+"</td><td>"+l.precio+"</td><td>"
-				+l.paginas+"</td><td>"+l.idTema+"</td><td><a href='#' onclick='agregarCarrito("+l.isbn+")'>Agregar</a></td></tr>";
+				+l.paginas+"</td><td>"+l.temaDto.tema+"</td><td><a href='#' onclick='agregarCarrito("+l.isbn+")'>Agregar</a></td></tr>";
 			});
 			tabla+="</table>";
 			$("#tbLibros").html(tabla);
@@ -77,7 +77,7 @@
 			var tabla="<table border='1'><tr><th>Título</th><th>ISBN</th><th>Precio</th><th>Páginas</th><th>Tema</th></tr>";
 			$.each(data, function(i,l){
 				tabla+="<tr><td>"+l.titulo+"</td><td>"+l.isbn+"</td><td>"+l.precio+"</td><td>"
-				+l.paginas+"</td><td>"+l.idTema+"</td><td><a href='#' onclick='EliminarCarrito("+i+")'>Eliminar</a></td></tr>";
+				+l.paginas+"</td><td>"+l.temaDto.tema+"</td><td><a href='#' onclick='EliminarCarrito("+i+")'>Eliminar</a></td></tr>";
 			});
 			tabla+="</table>";
 			$("#tbCarrito").html(tabla);

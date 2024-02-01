@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
-import model.Cliente;
-import model.Libro;
+import service.dtos.ClienteDto;
+import service.dtos.LibroDto;
 import service.interfaces.ClientesService;
 import service.interfaces.LibrosService;
 
@@ -25,7 +25,7 @@ public class LibreriaController {
 	LibrosService librosService;
 	
 	@PostMapping(value="alta")
-	public String altaCliente(Cliente cliente, Model model) {
+	public String altaCliente(ClienteDto cliente, Model model) {
 		if(!clientesService.altaCliente(cliente)) {
 			model.addAttribute("mensaje","Usuario repetido, no se pudo registrar");
 			return "registro";
@@ -44,16 +44,16 @@ public class LibreriaController {
 	}
 	
 	@GetMapping(value="libros",produces="application/json")
-	public @ResponseBody List<Libro> librosTema(@RequestParam("idTema") int idTema){
+	public @ResponseBody List<LibroDto> librosTema(@RequestParam("idTema") int idTema){
 		return librosService.librosTema(idTema);
 	}
 	
 	@GetMapping(value="agregarCarrito",produces="application/json")
-	public @ResponseBody List<Libro> agregarCarrito(@RequestParam("isbn") int isbn, HttpSession sesion){
-		Libro libro=librosService.getLibro(isbn);
-		List<Libro> carrito=new ArrayList<>();
+	public @ResponseBody List<LibroDto> agregarCarrito(@RequestParam("isbn") int isbn, HttpSession sesion){
+		LibroDto libro=librosService.getLibro(isbn);
+		List<LibroDto> carrito=new ArrayList<>();
 		if(sesion.getAttribute("carrito")!=null){
-			carrito=(List<Libro>)sesion.getAttribute("carrito");
+			carrito=(List<LibroDto>)sesion.getAttribute("carrito");
 		}
 		carrito.add(libro);
 		sesion.setAttribute("carrito", carrito);
@@ -61,10 +61,10 @@ public class LibreriaController {
 	}
 	
 	@GetMapping(value="quitarCarrito",produces="application/json")
-	public @ResponseBody List<Libro> quitarCarrito(@RequestParam("pos") int pos, HttpSession sesion){
-		List<Libro> carrito=new ArrayList<>();
+	public @ResponseBody List<LibroDto> quitarCarrito(@RequestParam("pos") int pos, HttpSession sesion){
+		List<LibroDto> carrito=new ArrayList<>();
 		if(sesion.getAttribute("carrito")!=null) {
-			carrito=(List<Libro>)sesion.getAttribute("carrito");
+			carrito=(List<LibroDto>)sesion.getAttribute("carrito");
 			carrito.remove(pos);
 		}
 		sesion.setAttribute("carrito", carrito);
