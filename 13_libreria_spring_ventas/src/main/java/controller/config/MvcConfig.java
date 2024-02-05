@@ -49,12 +49,9 @@ public class MvcConfig implements WebMvcConfigurer {
 	//nos cargamos los métodos para navegación estática del BuscadorController
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		//registry.addViewController("/toLogin").setViewName("login");
 		registry.addViewController("/").setViewName("login");
 		registry.addViewController("/toNuevo").setViewName("nuevo");
-		
-		
-		
+		registry.addViewController("/toMenu").setViewName("menu");	
 	}
 	
 	//método para localizar los recursos estáticos de la aplicación:

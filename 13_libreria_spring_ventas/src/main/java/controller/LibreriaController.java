@@ -16,6 +16,7 @@ import service.dtos.ClienteDto;
 import service.dtos.LibroDto;
 import service.interfaces.ClientesService;
 import service.interfaces.LibrosService;
+import service.interfaces.VentasService;
 
 @Controller
 public class LibreriaController {
@@ -23,6 +24,8 @@ public class LibreriaController {
 	ClientesService clientesService;
 	@Autowired
 	LibrosService librosService;
+	@Autowired
+	VentasService ventasService;
 	
 	@PostMapping(value="alta")
 	public String altaCliente(ClienteDto cliente, Model model) {
@@ -30,22 +33,30 @@ public class LibreriaController {
 			model.addAttribute("mensaje","Usuario repetido, no se pudo registrar");
 			return "registro";
 		}
-		return "login";
+		return "menu";
 	}
 	
 	@GetMapping(value="login")
-	public String login(@RequestParam("usuario") String usuario,@RequestParam("password") String password,Model model ) {
-		if(clientesService.autenticarUsuario(usuario,password)==null) {
-			model.addAttribute("mensaje", "Usuario no existente, regístrese");
+	public String login(@RequestParam("usuario") String usuario,@RequestParam("password") String password,Model model, HttpSession sesion ) {
+		ClienteDto dto=clientesService.autenticarUsuario(usuario, password);
+		if(dto==null) {
+			model.addAttribute("mensaje", "Usuario no existente, registrese");
 			return "login";
 		}
-		model.addAttribute("temas", librosService.getTemas());
-		return "visor";
+		//guardamos el cliente completo en un atributo de sesión
+		sesion.setAttribute("cliente", dto);
+		return "menu";
 	}
 	
 	@GetMapping(value="libros",produces="application/json")
 	public @ResponseBody List<LibroDto> librosTema(@RequestParam("idTema") int idTema){
 		return librosService.librosTema(idTema);
+	}
+	
+	@GetMapping(value="consulta")
+	public String consulta( Model model) {
+		model.addAttribute("temas", librosService.getTemas());
+		return "visor";
 	}
 	
 	@GetMapping(value="agregarCarrito",produces="application/json")
@@ -69,6 +80,13 @@ public class LibreriaController {
 		}
 		sesion.setAttribute("carrito", carrito);
 		return carrito;
+	}
+	
+	@GetMapping(value="ventas",produces="application/json")
+	public String venta(HttpSession sesion, Model model) {
+		ClienteDto dto=(ClienteDto)sesion.getAttribute("cliente");
+		model.addAttribute("ventas", ventasService.informeVentasCliente(dto.getUsuario()));
+		return "ventas";
 	}
 	
 }

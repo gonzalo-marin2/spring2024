@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Last-Modified" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div>
+		<h2>Compras de <span th:text="${session.cliente.usuario}"></span></h2>
+		<table border="1">
+			<tr>
+				<th>Fecha de compra</th>
+				<th>Fecha de compra</th>
+			</tr>
+			<tr th:each="v:${ventas}">
+				<td th:text="${v.fechaVenta}"></td>
+				<td th:text="${v.tituloLibro}"></td>
+			</tr>
+			
+		</table>
+	</div>
+	
+	<a href="toMenu">Volver a Menú</a>
+	
+	
+
+</body>
+</html>

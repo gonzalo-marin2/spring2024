@@ -1,15 +1,21 @@
 package service.mappers;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import model.Cliente;
 import model.Libro;
 import model.Tema;
+import model.Venta;
 import service.dtos.ClienteDto;
 import service.dtos.LibroDto;
 import service.dtos.TemaDto;
-import service.implementations.LibrosServiceImpl;
+import service.dtos.VentaDto;
 import service.interfaces.LibrosService;
 @Component
 public class Mapeador {
@@ -42,6 +48,24 @@ public class Mapeador {
 				cliente.getUsuario(),
 				cliente.getPassword(),
 				cliente.getEmail(),
-				cliente.getTelefono());
+				cliente.getTelefono(),
+				null);//no necesitamos proporcionar las ventas del cliente para crear el ClienteDto
+	}
+	
+	public VentaDto ventaEntityToDto(Venta venta) {
+		return new VentaDto(
+				venta.getIdVenta(),
+				venta.getCliente().getUsuario(),
+				venta.getLibro().getTitulo(),
+				convertirDateALocalDate(venta.getFecha())
+				);
+	}
+	
+	public LocalDate convertirDateALocalDate(Date date) {
+		//return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		 return Instant.ofEpochMilli(date.getTime())
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		
 	}
 }
