@@ -89,4 +89,14 @@ public class LibreriaController {
 		return "ventas";
 	}
 	
+	@GetMapping(value="comprar")
+	public String comprar(HttpSession sesion) {
+		ClienteDto cliente=(ClienteDto)sesion.getAttribute("cliente");
+		List<LibroDto> libros=(List<LibroDto>)sesion.getAttribute("carrito");
+		ventasService.registrarCompra(cliente.getUsuario(), libros);
+		//forzamos fin de sesión
+		sesion.invalidate();
+		return "login";
+	}
+	
 }

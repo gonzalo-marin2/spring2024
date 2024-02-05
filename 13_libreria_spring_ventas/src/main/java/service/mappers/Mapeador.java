@@ -35,6 +35,14 @@ public class Mapeador {
 		//hemos llamado al constructor para que nos dé el idTema
 	}
 	
+	public Libro libroDtoToEntity(LibroDto libro) {
+		return new Libro(libro.getIsbn(),
+				libro.getTitulo(),
+				libro.getAutor(),
+				libro.getPrecio(),
+				libro.getPaginas(),null);//como no necesitamos el tema, lo ponemos null
+	}
+	
 	public ClienteDto clienteEntityToDto(Cliente cliente) {
 		return cliente!=null?new ClienteDto(
 				cliente.getUsuario(),
