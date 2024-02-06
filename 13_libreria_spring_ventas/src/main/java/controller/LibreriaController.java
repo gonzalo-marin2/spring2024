@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,12 +29,12 @@ public class LibreriaController {
 	VentasService ventasService;
 	
 	@PostMapping(value="alta")
-	public String altaCliente(ClienteDto cliente, Model model) {
+	public String altaCliente(@ModelAttribute ClienteDto cliente, Model model) {
 		if(!clientesService.altaCliente(cliente)) {
 			model.addAttribute("mensaje","Usuario repetido, no se pudo registrar");
 			return "registro";
 		}
-		return "menu";
+		return "login";
 	}
 	
 	@GetMapping(value="login")
